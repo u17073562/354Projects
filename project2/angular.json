@@ -1,12 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": "a4f571d7-fb52-4a39-9d6f-7074bd952748"
+    "analytics": false
   },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "project1": {
+    "project2": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -20,22 +20,16 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/project1",
+            "outputPath": "dist/project2",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "**/*",
-                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-                "output": "/assets/"
-              }
+              "src/assets"
             ],
             "styles": [
-              "src/theme.less",
               "src/styles.css"
             ],
             "scripts": []
@@ -77,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "project1:build:production"
+              "browserTarget": "project2:build:production"
             },
             "development": {
-              "browserTarget": "project1:build:development"
+              "browserTarget": "project2:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -88,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "project1:build"
+            "browserTarget": "project2:build"
           }
         },
         "test": {
@@ -111,5 +105,5 @@
       }
     }
   },
-  "defaultProject": "project1"
+  "defaultProject": "project2"
 }

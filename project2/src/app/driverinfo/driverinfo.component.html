@@ -1,0 +1,33 @@
+<form nz-form [formGroup]="driverForm" class="driver-form" (ngSubmit)="submitForm()">
+  <h1>Driver Form</h1>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your name!">
+      <label class="control-label col-sm-2" for="fName">Full Name:</label>
+        <input type="text" nz-input formControlName="fName" placeholder="name" />
+
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your id number!">
+      <label class="control-label col-sm-2" for="idNo">ID Number:</label>
+        <input type="text" nz-input formControlName="idNo" placeholder="id number" />
+
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input the otpd!">
+      <label class="control-label col-sm-2" for="otp">OTP:</label>
+        <input type="text" nz-input formControlName="otp" placeholder="One Time Pin" />
+    </nz-form-control>
+  </nz-form-item>
+<br>
+
+  <button nz-button class="driver-form-button driver-form-margin" nzType="default">Submit</button>
+<hr>
+  <h6>“By clicking next, I agree that the above information is
+    accurate</h6>
+</form>
+<button nz-button class="driver-form-button driver-form-margin" routerLink="/id-idimage" nzType="default">Submit</button>
+
+

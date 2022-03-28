@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DriverServiceService } from '../service/driver-service.service';
 
@@ -10,39 +10,47 @@ import { DriverServiceService } from '../service/driver-service.service';
 })
 export class DriverInfoComponent implements OnInit {
 
-  driverForm :any;
-  submitted =false
+  driverForm! :FormGroup;
 
   constructor(private driverservice:DriverServiceService,private formBuilder: FormBuilder, private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
      this.driverForm = this.formBuilder.group({
-      fName: ['', [Validators.required]],
-      idNo: ['', [Validators.required, this.driverservice.verifyID]],
-      otp: ['', [Validators.required]],
-      agree: [false, [Validators.requiredTrue]],
+      fName:[null, [Validators.required]],
+      idNo: [null, [Validators.required]],
+      otp: [null, [Validators.required]],
     });
   }
 
-  onSubmit() {
-    this.submitted=true;
-    if (this.driverForm.valid && this.driverForm.formValidation) {
+  onSubmit() :void {
+    if (this.driverForm.valid) {
       this.router.navigate(['/idimage']);
+    } else {
+      Object.values(this.driverForm.controls).forEach(control => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({ onlySelf: false });
+        }
+      });
     }
-      return 'no';
+  }
+  reset() {
+    this.driverForm.reset();
+  }
+  submitForm(): void {
+    if (this.driverForm.valid) {
+     this.driverForm.value;
+      this.router.navigate(['/idimage']);
+    } else {
+      Object.values(this.driverForm.controls).forEach(control => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({ onlySelf: true });
+        }
+      });
+    }
   }
 
-  formValidation(driverForm:FormGroup) {
-    Object.keys(driverForm.controls).forEach(field => {
-      console.log(field);
-      const control = driverForm.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
-        this.formValidation(control);
-      }
-    });
-  }
 }
 
 
